@@ -1,5 +1,110 @@
 import React, { useState } from 'react';
 
+const CreateEventPopup = ({
+  eventTitle,
+  setEventTitle,
+  eventLocation,
+  setEventLocation,
+  handleCreateEvent,
+  setShowCreatePopup,
+}) => (
+  <div className="popup-overlay">
+    <div className="mm-popup__box">
+      <div className="mm-popup__box__header">
+        <h3>Create Event</h3>
+      </div>
+      <div className="mm-popup__box__body">
+        <input
+          type="text"
+          placeholder="Event Title"
+          value={eventTitle}
+          onChange={(e) => setEventTitle(e.target.value)}
+          className="event-input"
+        />
+        <input
+          type="text"
+          placeholder="Event Location"
+          value={eventLocation}
+          onChange={(e) => setEventLocation(e.target.value)}
+          className="event-input"
+        />
+      </div>
+      <div className="mm-popup__box__footer">
+        <div className="mm-popup__box__footer__right-space">
+          <button
+            className="mm-popup__btn"
+            onClick={handleCreateEvent}
+          >
+            Save
+          </button>
+          <button
+            className="mm-popup__btn"
+            onClick={() => setShowCreatePopup(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const EditEventPopup = ({
+  eventTitle,
+  setEventTitle,
+  eventLocation,
+  setEventLocation,
+  handleUpdateEvent,
+  handleDeleteEvent,
+  setShowEditPopup,
+}) => (
+  <div className="popup-overlay">
+    <div className="mm-popup__box">
+      <div className="mm-popup__box__header">
+        <h3>Edit Event</h3>
+      </div>
+      <div className="mm-popup__box__body">
+        <input
+          type="text"
+          placeholder="Event Title"
+          value={eventTitle}
+          onChange={(e) => setEventTitle(e.target.value)}
+          className="event-input"
+        />
+        <input
+          type="text"
+          placeholder="Event Location"
+          value={eventLocation}
+          onChange={(e) => setEventLocation(e.target.value)}
+          className="event-input"
+        />
+      </div>
+      <div className="mm-popup__box__footer">
+        <div className="mm-popup__box__footer__right-space">
+          <button
+            className="mm-popup__btn mm-popup__btn--info"
+            onClick={handleUpdateEvent}
+          >
+            Save
+          </button>
+          <button
+            className="mm-popup__btn mm-popup__btn--danger"
+            onClick={handleDeleteEvent}
+          >
+            Delete
+          </button>
+          <button
+            className="mm-popup__btn"
+            onClick={() => setShowEditPopup(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const App = () => {
   const [events, setEvents] = useState([]);
   const [showCreatePopup, setShowCreatePopup] = useState(false);
@@ -158,96 +263,6 @@ const App = () => {
       isSameDay(new Date(event.date), date)
     );
   };
-
-  const CreateEventPopup = () => (
-    <div className="popup-overlay">
-      <div className="mm-popup__box">
-        <div className="mm-popup__box__header">
-          <h3>Create Event</h3>
-        </div>
-        <div className="mm-popup__box__body">
-          <input
-            type="text"
-            placeholder="Event Title"
-            value={eventTitle}
-            onChange={(e) => setEventTitle(e.target.value)}
-            className="event-input"
-          />
-          <input
-            type="text"
-            placeholder="Event Location"
-            value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
-            className="event-input"
-          />
-        </div>
-        <div className="mm-popup__box__footer">
-          <div className="mm-popup__box__footer__right-space">
-            <button
-              className="mm-popup__btn"
-              onClick={handleCreateEvent}
-            >
-              Save
-            </button>
-            <button
-              className="mm-popup__btn"
-              onClick={() => setShowCreatePopup(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const EditEventPopup = () => (
-    <div className="popup-overlay">
-      <div className="mm-popup__box">
-        <div className="mm-popup__box__header">
-          <h3>Edit Event</h3>
-        </div>
-        <div className="mm-popup__box__body">
-          <input
-            type="text"
-            placeholder="Event Title"
-            value={eventTitle}
-            onChange={(e) => setEventTitle(e.target.value)}
-            className="event-input"
-          />
-          <input
-            type="text"
-            placeholder="Event Location"
-            value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
-            className="event-input"
-          />
-        </div>
-        <div className="mm-popup__box__footer">
-          <div className="mm-popup__box__footer__right-space">
-            <button
-              className="mm-popup__btn mm-popup__btn--info"
-              onClick={handleUpdateEvent}
-            >
-              Save
-            </button>
-            <button
-              className="mm-popup__btn mm-popup__btn--danger"
-              onClick={handleDeleteEvent}
-            >
-              Delete
-            </button>
-            <button
-              className="mm-popup__btn"
-              onClick={() => setShowEditPopup(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   const days = getDaysInMonth(currentMonth);
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -589,8 +604,27 @@ const App = () => {
         </div>
       </div>
       
-      {showCreatePopup && <CreateEventPopup />}
-      {showEditPopup && <EditEventPopup />}
+      {showCreatePopup && (
+        <CreateEventPopup
+          eventTitle={eventTitle}
+          setEventTitle={setEventTitle}
+          eventLocation={eventLocation}
+          setEventLocation={setEventLocation}
+          handleCreateEvent={handleCreateEvent}
+          setShowCreatePopup={setShowCreatePopup}
+        />
+      )}
+      {showEditPopup && (
+        <EditEventPopup
+          eventTitle={eventTitle}
+          setEventTitle={setEventTitle}
+          eventLocation={eventLocation}
+          setEventLocation={setEventLocation}
+          handleUpdateEvent={handleUpdateEvent}
+          handleDeleteEvent={handleDeleteEvent}
+          setShowEditPopup={setShowEditPopup}
+        />
+      )}
     </div>
   );
 };
