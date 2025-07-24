@@ -21,6 +21,7 @@ const App = () => {
     setEventTitle("");
     setEventLocation("");
     setShowCreatePopup(true);
+    
   };
 
   const handleSelectEvent = (event) => {
