@@ -151,13 +151,13 @@ const App = () => {
             <div className="mm-popup__box__footer">
               <div className="mm-popup__box__footer__right-space">
                 <button
-                  className="mm-popup__btn"
+                  className="mm-popup__btn save-btn"
                   onClick={handleCreateEvent}
                 >
                   Save
                 </button>
                 <button
-                  className="mm-popup__btn"
+                  className="mm-popup__btn cancel-btn"
                   onClick={() => setShowCreatePopup(false)}
                 >
                   Cancel
